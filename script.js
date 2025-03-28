@@ -119,6 +119,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     verifiedBadge.classList.add('show-badge');
                 }, 100);
                 
+                // Play success sound
+                playVerifiedSound();
+                
                 // Reset scan attempts
                 scanAttempts = 0;
                 
@@ -141,8 +144,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (scanAttempts > 60) { // About 1 second if running at 60fps
                 showNotVerifiedNotification();
                 scanAttempts = 0;
-                // Show the result container for not verified notification
-                document.querySelector('.result-container').classList.remove('hidden');
+                // Hide the result container for not verified notification
+                document.querySelector('.result-container').classList.add('hidden');
             }
         }
         
@@ -166,6 +169,9 @@ document.addEventListener('DOMContentLoaded', () => {
         verifiedBadge.classList.add('hidden');
         verifiedBadge.classList.remove('show-badge');
         
+        // Hide the scan result box
+        resultElement.innerText = "";
+        
         // Show not verified badge
         notVerifiedBadge.classList.remove('hidden');
         setTimeout(() => {
@@ -179,5 +185,38 @@ document.addEventListener('DOMContentLoaded', () => {
         verifiedBadge.classList.remove('show-badge');
         notVerifiedBadge.classList.add('hidden');
         notVerifiedBadge.classList.remove('show-badge');
+    }
+    
+    // Add this function to play a verification sound
+    function playVerifiedSound() {
+        // Create an AudioContext
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        
+        // Create an oscillator for a simple beep
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        // Connect the nodes
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        // Set parameters for a pleasant sound
+        oscillator.type = 'sine';
+        oscillator.frequency.setValueAtTime(1200, audioContext.currentTime); // Higher frequency for success
+        gainNode.gain.setValueAtTime(0.1, audioContext.currentTime); // Lower volume
+        
+        // Start and stop the sound
+        oscillator.start();
+        oscillator.stop(audioContext.currentTime + 0.15); // Short duration
+        
+        // Add a second tone for a more pleasant sound
+        setTimeout(() => {
+            const oscillator2 = audioContext.createOscillator();
+            oscillator2.connect(gainNode);
+            oscillator2.type = 'sine';
+            oscillator2.frequency.setValueAtTime(1800, audioContext.currentTime); // Higher frequency
+            oscillator2.start();
+            oscillator2.stop(audioContext.currentTime + 0.1); // Even shorter duration
+        }, 100);
     }
 }); 
