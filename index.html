@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Reader</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="QR Scanner">
+    <link rel="apple-touch-icon" href="icon.png">
+</head>
+<body>
+    <div class="container">
+        <h1>QR Code Reader</h1>
+        
+        <div class="scanner-container">
+            <video id="video" playsinline></video>
+            <canvas id="canvas" hidden></canvas>
+            <div id="overlay"></div>
+        </div>
+        
+        <div class="controls">
+            <button id="startButton">Start Scanner</button>
+            <button id="stopButton" disabled>Stop Scanner</button>
+        </div>
+        
+        <div class="result-container">
+            <h2>Scan Result:</h2>
+            <div id="result">No QR code detected</div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 
