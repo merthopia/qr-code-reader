@@ -117,13 +117,13 @@ h2 {
     background-color: #4CAF50;
     color: white;
     border-radius: 5px;
-    font-size: 18px;
+    font-size: 24px;
     font-weight: 500;
     transition: all 0.3s ease;
 }
 
 #verified-badge i {
-    font-size: 24px;
+    font-size: 30px;
     margin-right: 8px;
 }
 
@@ -136,13 +136,13 @@ h2 {
     background-color: #f44336;
     color: white;
     border-radius: 5px;
-    font-size: 18px;
+    font-size: 24px;
     font-weight: 500;
     transition: all 0.3s ease;
 }
 
 #not-verified-badge i {
-    font-size: 24px;
+    font-size: 30px;
     margin-right: 8px;
 }
 

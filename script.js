@@ -39,12 +39,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 startButton.disabled = true;
                 stopButton.disabled = false;
                 
-                // Hide verified badge when starting a new scan
+                // Hide both badges when starting a new scan
                 verifiedBadge.classList.add('hidden');
                 verifiedBadge.classList.remove('show-badge');
                 notVerifiedBadge.classList.add('hidden');
                 notVerifiedBadge.classList.remove('show-badge');
                 scanAttempts = 0;
+                
+                // Reset result text
+                resultElement.innerText = "No QR code detected";
                 
                 requestAnimationFrame(tick);
             })
@@ -154,13 +157,5 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             notVerifiedBadge.classList.add('show-badge');
         }, 100);
-        
-        // Hide the notification after 3 seconds
-        setTimeout(() => {
-            notVerifiedBadge.classList.remove('show-badge');
-            setTimeout(() => {
-                notVerifiedBadge.classList.add('hidden');
-            }, 500);
-        }, 3000);
     }
 }); 
