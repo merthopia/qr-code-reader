@@ -123,6 +123,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     // Play success sound
                     playVerifiedSound();
+                    
+                    // Show standalone notification
+                    showStandaloneNotification("Verified", true);
                 } else {
                     // Not a valid ticket
                     // Hide the result container
@@ -132,6 +135,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     hideAllBadges();
                     notVerifiedBadge.classList.remove('hidden');
                     notVerifiedBadge.classList.add('show-badge');
+                    
+                    // Create a standalone notification for "Not Verified"
+                    showStandaloneNotification("Not Verified", false);
                 }
                 
                 // Reset scan attempts
@@ -155,6 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Show "Not Verified" after several unsuccessful attempts
             if (scanAttempts > 60) { // About 1 second if running at 60fps
                 showNotVerifiedNotification();
+                showStandaloneNotification("Not Verified", false);
                 scanAttempts = 0;
                 // Hide the result container for not verified notification
                 document.querySelector('.result-container').classList.add('hidden');
@@ -230,5 +237,63 @@ document.addEventListener('DOMContentLoaded', () => {
             oscillator2.start();
             oscillator2.stop(audioContext.currentTime + 0.1); // Even shorter duration
         }, 100);
+    }
+    
+    // Add this new function to your script.js file
+    function showStandaloneNotification(message, isSuccess) {
+        // Remove any existing notifications
+        const existingNotification = document.getElementById('standalone-notification');
+        if (existingNotification) {
+            document.body.removeChild(existingNotification);
+        }
+        
+        // Create a new notification element
+        const notification = document.createElement('div');
+        notification.id = 'standalone-notification';
+        notification.style.position = 'fixed';
+        notification.style.top = '50%';
+        notification.style.left = '50%';
+        notification.style.transform = 'translate(-50%, -50%)';
+        notification.style.backgroundColor = isSuccess ? '#4CAF50' : '#f44336';
+        notification.style.color = 'white';
+        notification.style.padding = '20px';
+        notification.style.borderRadius = '10px';
+        notification.style.boxShadow = '0 4px 8px rgba(0,0,0,0.2)';
+        notification.style.zIndex = '1000';
+        notification.style.textAlign = 'center';
+        notification.style.fontFamily = 'Poppins, sans-serif';
+        notification.style.fontSize = '24px';
+        notification.style.fontWeight = 'bold';
+        notification.style.display = 'flex';
+        notification.style.alignItems = 'center';
+        notification.style.justifyContent = 'center';
+        
+        // Add icon
+        const icon = document.createElement('i');
+        icon.className = isSuccess ? 'fas fa-check-circle' : 'fas fa-times-circle';
+        icon.style.marginRight = '10px';
+        icon.style.fontSize = '30px';
+        notification.appendChild(icon);
+        
+        // Add message
+        const text = document.createElement('span');
+        text.textContent = message;
+        notification.appendChild(text);
+        
+        // Add to body
+        document.body.appendChild(notification);
+        
+        // Remove after 2 seconds
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.style.opacity = '0';
+                notification.style.transition = 'opacity 0.5s ease';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        document.body.removeChild(notification);
+                    }
+                }, 500);
+            }
+        }, 2000);
     }
 }); 
