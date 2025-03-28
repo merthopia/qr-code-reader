@@ -39,11 +39,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 startButton.disabled = true;
                 stopButton.disabled = false;
                 
-                // Hide both badges when starting a new scan
-                verifiedBadge.classList.add('hidden');
-                verifiedBadge.classList.remove('show-badge');
-                notVerifiedBadge.classList.add('hidden');
-                notVerifiedBadge.classList.remove('show-badge');
+                // Use the new function
+                hideAllBadges();
                 scanAttempts = 0;
                 
                 // Reset result text
@@ -113,7 +110,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Show the result container
                 document.querySelector('.result-container').classList.remove('hidden');
                 
-                // Show verified badge
+                // Hide all badges first
+                hideAllBadges();
+                
+                // Then show verified badge
                 verifiedBadge.classList.remove('hidden');
                 setTimeout(() => {
                     verifiedBadge.classList.add('show-badge');
@@ -171,5 +171,13 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             notVerifiedBadge.classList.add('show-badge');
         }, 100);
+    }
+    
+    // Add this function to ensure only one badge is shown at a time
+    function hideAllBadges() {
+        verifiedBadge.classList.add('hidden');
+        verifiedBadge.classList.remove('show-badge');
+        notVerifiedBadge.classList.add('hidden');
+        notVerifiedBadge.classList.remove('show-badge');
     }
 }); 
