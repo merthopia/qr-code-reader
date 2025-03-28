@@ -49,14 +49,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Reset result text
                 resultElement.innerText = "No QR code detected";
                 
+                // Keep result container hidden until a QR code is detected
+                document.querySelector('.result-container').classList.add('hidden');
+                
                 requestAnimationFrame(tick);
             })
             .catch(function(error) {
                 console.error("Error accessing the camera: ", error);
                 resultElement.innerText = "Error accessing the camera. Please make sure you've granted camera permissions.";
+                // Show result container for error message
+                document.querySelector('.result-container').classList.remove('hidden');
             });
         } else {
             resultElement.innerText = "Sorry, your browser doesn't support camera access.";
+            // Show result container for error message
+            document.querySelector('.result-container').classList.remove('hidden');
         }
     }
     
@@ -72,13 +79,15 @@ document.addEventListener('DOMContentLoaded', () => {
         
         startButton.disabled = false;
         stopButton.disabled = true;
-        resultElement.innerText = "Scanner stopped";
         
         // Hide verified badge when stopping
         verifiedBadge.classList.add('hidden');
         verifiedBadge.classList.remove('show-badge');
         notVerifiedBadge.classList.add('hidden');
         notVerifiedBadge.classList.remove('show-badge');
+        
+        // Hide the result container when stopping
+        document.querySelector('.result-container').classList.add('hidden');
     }
     
     function tick() {
@@ -100,6 +109,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Draw a box around the QR code
                 drawQRCodeOutline(code.location);
+                
+                // Show the result container
+                document.querySelector('.result-container').classList.remove('hidden');
                 
                 // Show verified badge
                 verifiedBadge.classList.remove('hidden');
@@ -129,6 +141,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (scanAttempts > 60) { // About 1 second if running at 60fps
                 showNotVerifiedNotification();
                 scanAttempts = 0;
+                // Show the result container for not verified notification
+                document.querySelector('.result-container').classList.remove('hidden');
             }
         }
         

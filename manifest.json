@@ -1,6 +1,6 @@
 {
-  "name": "QR Code Scanner",
-  "short_name": "QR Scanner",
+  "name": "Event: Zebra Organisations",
+  "short_name": "Zebra Event",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#ffffff",
