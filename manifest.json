@@ -1,10 +1,10 @@
 {
-  "name": "Zebra Organisations QR Scanner",
-  "short_name": "Zebra Scanner",
+  "name": "QR Code Scanner",
+  "short_name": "QR Scanner",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#333333",
+  "theme_color": "#4CAF50",
   "icons": [
     {
       "src": "icon.png",

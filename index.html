@@ -3,50 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zebra Organisations QR Scanner</title>
+    <title>QR Code Reader</title>
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="Zebra QR Scanner">
+    <meta name="apple-mobile-web-app-title" content="QR Scanner">
     <link rel="apple-touch-icon" href="icon.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <img src="zebra-logo.png" alt="Zebra Organisations Logo" class="logo">
-            <h1>Ticket Verification</h1>
-            <p class="event-name">Happiness at Work Experience</p>
-        </div>
+        <h1>QR Code Reader</h1>
         
         <div class="scanner-container">
             <video id="video" playsinline></video>
             <canvas id="canvas" hidden></canvas>
             <div id="overlay"></div>
-            <div class="scan-guide">
-                <div class="scan-message">Position QR code in frame</div>
-            </div>
         </div>
         
         <div class="controls">
-            <button id="startButton"><i class="fas fa-camera"></i> Start Scanner</button>
-            <button id="stopButton" disabled><i class="fas fa-stop"></i> Stop Scanner</button>
+            <button id="startButton">Start Scanner</button>
+            <button id="stopButton" disabled>Stop Scanner</button>
         </div>
         
         <div class="result-container">
-            <h2>Ticket Information:</h2>
-            <div id="result">No ticket scanned yet</div>
-            <div id="verification-status" class="hidden">
-                <div class="verification-badge">
-                    <i class="fas fa-check-circle"></i>
-                    <span>Verified</span>
-                </div>
-            </div>
-        </div>
-        
-        <div class="footer">
-            <p>© 2023 Zebra Organisations - Happiness at Work Experience</p>
+            <h2>Scan Result:</h2>
+            <div id="result">No QR code detected</div>
         </div>
     </div>
 
