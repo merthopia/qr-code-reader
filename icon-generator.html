@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>App Icon Generator</title>
+    <style>
+        body { display: flex; flex-direction: column; align-items: center; font-family: 'Poppins', sans-serif; }
+        canvas { border: 1px solid #ccc; margin: 20px; }
+        button { padding: 10px 20px; background: #343b7f; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>QR Scanner App Icon Generator</h1>
+    <canvas id="iconCanvas" width="192" height="192"></canvas>
+    <button id="downloadBtn">Download Icon</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const canvas = document.getElementById('iconCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Background
+            ctx.fillStyle = '#343b7f';
+            ctx.fillRect(0, 0, 192, 192);
+            
+            // Draw a QR code-like pattern
+            ctx.fillStyle = 'white';
+            
+            // Outer square
+            ctx.fillRect(48, 48, 96, 96);
+            
+            // Inner pattern
+            ctx.fillStyle = '#343b7f';
+            ctx.fillRect(60, 60, 72, 72);
+            
+            // QR code corner squares
+            ctx.fillStyle = 'white';
+            ctx.fillRect(65, 65, 20, 20);
+            ctx.fillRect(107, 65, 20, 20);
+            ctx.fillRect(65, 107, 20, 20);
+            
+            // Add a scan line
+            ctx.strokeStyle = '#4CAF50';
+            ctx.lineWidth = 4;
+            ctx.beginPath();
+            ctx.moveTo(40, 96);
+            ctx.lineTo(152, 96);
+            ctx.stroke();
+            
+            // Add text
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 24px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('QR', 96, 160);
+            
+            // Download button
+            document.getElementById('downloadBtn').addEventListener('click', function() {
+                const link = document.createElement('a');
+                link.download = 'icon.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+        });
+    </script>
+</body>
+</html> 
