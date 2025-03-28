@@ -107,20 +107,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Draw a box around the QR code
                 drawQRCodeOutline(code.location);
                 
-                // Show the result container
-                document.querySelector('.result-container').classList.remove('hidden');
-                
-                // Hide all badges first
-                hideAllBadges();
-                
-                // Then show verified badge
-                verifiedBadge.classList.remove('hidden');
-                setTimeout(() => {
-                    verifiedBadge.classList.add('show-badge');
-                }, 100);
-                
-                // Play success sound
-                playVerifiedSound();
+                // Check if the QR code contains "Ticket"
+                if (code.data.includes("Ticket")) {
+                    // Show the result container
+                    document.querySelector('.result-container').classList.remove('hidden');
+                    
+                    // Hide all badges first
+                    hideAllBadges();
+                    
+                    // Then show verified badge
+                    verifiedBadge.classList.remove('hidden');
+                    setTimeout(() => {
+                        verifiedBadge.classList.add('show-badge');
+                    }, 100);
+                    
+                    // Play success sound
+                    playVerifiedSound();
+                } else {
+                    // Not a valid ticket
+                    // Hide the result container
+                    document.querySelector('.result-container').classList.add('hidden');
+                    
+                    // Show not verified notification
+                    showNotVerifiedNotification();
+                }
                 
                 // Reset scan attempts
                 scanAttempts = 0;
