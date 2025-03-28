@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultElement = document.getElementById('result');
     const startButton = document.getElementById('startButton');
     const stopButton = document.getElementById('stopButton');
+    const verificationStatus = document.getElementById('verification-status');
     
     let scanning = false;
     
@@ -36,6 +37,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 startButton.disabled = true;
                 stopButton.disabled = false;
                 
+                // Hide verification badge when starting new scan
+                verificationStatus.classList.add('hidden');
+                
                 requestAnimationFrame(tick);
             })
             .catch(function(error) {
@@ -60,6 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
         startButton.disabled = false;
         stopButton.disabled = true;
         resultElement.innerText = "Scanner stopped";
+        verificationStatus.classList.add('hidden');
     }
     
     function tick() {
@@ -77,7 +82,10 @@ document.addEventListener('DOMContentLoaded', () => {
             
             if (code) {
                 // QR code detected
-                resultElement.innerText = code.data;
+                resultElement.innerText = formatTicketData(code.data);
+                
+                // Show verification badge
+                verificationStatus.classList.remove('hidden');
                 
                 // Draw a box around the QR code
                 drawQRCodeOutline(code.location);
@@ -89,13 +97,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => {
                     scanning = true;
                     requestAnimationFrame(tick);
-                }, 1000);
+                }, 2000);
                 
                 return;
             }
         }
         
         requestAnimationFrame(tick);
+    }
+    
+    function formatTicketData(data) {
+        // This function can be customized to format the QR code data
+        // For example, if the QR code contains JSON data, you can parse and format it
+        try {
+            const ticketData = JSON.parse(data);
+            if (ticketData.name && ticketData.ticketId) {
+                return `Name: ${ticketData.name}\nTicket ID: ${ticketData.ticketId}\nTicket Type: ${ticketData.type || 'Standard'}`;
+            }
+        } catch (e) {
+            // If not JSON or parsing fails, return the raw data
+        }
+        return data;
     }
     
     function drawQRCodeOutline(location) {
@@ -106,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.lineTo(location.bottomLeftCorner.x, location.bottomLeftCorner.y);
         ctx.lineTo(location.topLeftCorner.x, location.topLeftCorner.y);
         ctx.lineWidth = 4;
-        ctx.strokeStyle = "#FF3B58";
+        ctx.strokeStyle = "#FF8C00"; // Zebra accent color
         ctx.stroke();
     }
 }); 
