@@ -1,10 +1,10 @@
 {
   "name": "Event: Zebra Organisations",
-  "short_name": "Zebra Event",
+  "short_name": "QR Reader",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#4CAF50",
+  "theme_color": "#343b7f",
   "icons": [
     {
       "src": "icon.png",
