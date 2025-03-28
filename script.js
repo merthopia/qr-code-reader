@@ -5,8 +5,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultElement = document.getElementById('result');
     const startButton = document.getElementById('startButton');
     const stopButton = document.getElementById('stopButton');
+    const verifiedBadge = document.getElementById('verified-badge');
+    const notVerifiedBadge = document.getElementById('not-verified-badge');
     
     let scanning = false;
+    let scanAttempts = 0;
     
     // Start the scanner
     startButton.addEventListener('click', () => {
@@ -36,6 +39,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 startButton.disabled = true;
                 stopButton.disabled = false;
                 
+                // Hide verified badge when starting a new scan
+                verifiedBadge.classList.add('hidden');
+                verifiedBadge.classList.remove('show-badge');
+                notVerifiedBadge.classList.add('hidden');
+                notVerifiedBadge.classList.remove('show-badge');
+                scanAttempts = 0;
+                
                 requestAnimationFrame(tick);
             })
             .catch(function(error) {
@@ -60,6 +70,12 @@ document.addEventListener('DOMContentLoaded', () => {
         startButton.disabled = false;
         stopButton.disabled = true;
         resultElement.innerText = "Scanner stopped";
+        
+        // Hide verified badge when stopping
+        verifiedBadge.classList.add('hidden');
+        verifiedBadge.classList.remove('show-badge');
+        notVerifiedBadge.classList.add('hidden');
+        notVerifiedBadge.classList.remove('show-badge');
     }
     
     function tick() {
@@ -82,6 +98,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Draw a box around the QR code
                 drawQRCodeOutline(code.location);
                 
+                // Show verified badge
+                verifiedBadge.classList.remove('hidden');
+                setTimeout(() => {
+                    verifiedBadge.classList.add('show-badge');
+                }, 100);
+                
+                // Reset scan attempts
+                scanAttempts = 0;
+                
                 // Optional: Add a beep sound or vibration here
                 
                 // Pause scanning for a moment to avoid multiple scans of the same code
@@ -92,6 +117,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 }, 1000);
                 
                 return;
+            }
+            
+            // Increment scan attempts if no QR code was found
+            scanAttempts++;
+            
+            // Show "Not Verified" after several unsuccessful attempts
+            if (scanAttempts > 60) { // About 1 second if running at 60fps
+                showNotVerifiedNotification();
+                scanAttempts = 0;
             }
         }
         
@@ -108,5 +142,25 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.lineWidth = 4;
         ctx.strokeStyle = "#FF3B58";
         ctx.stroke();
+    }
+    
+    function showNotVerifiedNotification() {
+        // Hide verified badge if it's showing
+        verifiedBadge.classList.add('hidden');
+        verifiedBadge.classList.remove('show-badge');
+        
+        // Show not verified badge
+        notVerifiedBadge.classList.remove('hidden');
+        setTimeout(() => {
+            notVerifiedBadge.classList.add('show-badge');
+        }, 100);
+        
+        // Hide the notification after 3 seconds
+        setTimeout(() => {
+            notVerifiedBadge.classList.remove('show-badge');
+            setTimeout(() => {
+                notVerifiedBadge.classList.add('hidden');
+            }, 500);
+        }, 3000);
     }
 }); 

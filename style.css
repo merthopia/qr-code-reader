@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 body {
@@ -23,6 +23,8 @@ h1 {
     text-align: center;
     margin-bottom: 20px;
     color: #333;
+    font-size: 24px;
+    font-weight: 600;
 }
 
 .scanner-container {
@@ -68,6 +70,7 @@ button {
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s;
+    font-weight: 500;
 }
 
 button:hover {
@@ -84,19 +87,75 @@ button:disabled {
     padding: 15px;
     border-radius: 8px;
     margin-top: 20px;
+    position: relative;
 }
 
 h2 {
     font-size: 18px;
     margin-bottom: 10px;
     color: #333;
+    font-weight: 600;
 }
 
 #result {
-    padding: 10px;
+    padding: 15px;
     background-color: white;
     border: 1px solid #ddd;
     border-radius: 5px;
-    min-height: 50px;
+    min-height: 60px;
     word-break: break-all;
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+#verified-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+#verified-badge i {
+    font-size: 24px;
+    margin-right: 8px;
+}
+
+#not-verified-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #f44336;
+    color: white;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+#not-verified-badge i {
+    font-size: 24px;
+    margin-right: 8px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.show-badge {
+    display: flex !important;
+    animation: fadeIn 0.5s ease forwards;
 } 

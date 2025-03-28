@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR Code Reader</title>
+    <title>Happiness at Work</title>
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="QR Scanner">
     <link rel="apple-touch-icon" href="icon.png">
+    <!-- Add Poppins font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for the verified badge icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div class="container">
-        <h1>QR Code Reader</h1>
+        <h1>Happiness at Work</h1>
         
         <div class="scanner-container">
             <video id="video" playsinline></video>
@@ -29,6 +33,14 @@
         <div class="result-container">
             <h2>Scan Result:</h2>
             <div id="result">No QR code detected</div>
+            <div id="verified-badge" class="hidden">
+                <i class="fas fa-check-circle"></i>
+                <span>Verified</span>
+            </div>
+            <div id="not-verified-badge" class="hidden">
+                <i class="fas fa-times-circle"></i>
+                <span>Not Verified</span>
+            </div>
         </div>
     </div>
 
