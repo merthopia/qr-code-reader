@@ -129,7 +129,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     document.querySelector('.result-container').classList.add('hidden');
                     
                     // Show not verified notification
-                    showNotVerifiedNotification();
+                    hideAllBadges();
+                    notVerifiedBadge.classList.remove('hidden');
+                    notVerifiedBadge.classList.add('show-badge');
                 }
                 
                 // Reset scan attempts
@@ -176,17 +178,17 @@ document.addEventListener('DOMContentLoaded', () => {
     
     function showNotVerifiedNotification() {
         // Hide verified badge if it's showing
-        verifiedBadge.classList.add('hidden');
-        verifiedBadge.classList.remove('show-badge');
+        hideAllBadges();
         
         // Hide the scan result box
         resultElement.innerText = "";
         
         // Show not verified badge
         notVerifiedBadge.classList.remove('hidden');
-        setTimeout(() => {
-            notVerifiedBadge.classList.add('show-badge');
-        }, 100);
+        notVerifiedBadge.classList.add('show-badge');
+        
+        // Make sure the badge is visible in the DOM
+        document.body.offsetHeight; // Force a reflow
     }
     
     // Add this function to ensure only one badge is shown at a time
